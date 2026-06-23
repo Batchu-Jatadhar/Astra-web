@@ -88,7 +88,7 @@ export default function ISSPassPredictor() {
     <div className="glass-card p-4 flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <h2 className="font-display text-xs text-solar tracking-widest">NEXT ISS PASSES</h2>
-        <span className="cosmic-badge bg-solar/10 text-yellow-400 border border-yellow-400/20">
+        <span className="cosmic-badge bg-solar/10 text-neutral-300 border border-neutral-300/20">
           {passes.length} FOUND
         </span>
       </div>
@@ -122,7 +122,7 @@ function PassRow({ pass, index }: { pass: Pass; index: number }) {
   const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   const quality = pass.maxElevation > 50 ? 'Excellent' : pass.maxElevation > 25 ? 'Good' : 'Fair';
-  const qualityColor = pass.maxElevation > 50 ? 'text-green-400' : pass.maxElevation > 25 ? 'text-yellow-400' : 'text-orange-400';
+  const qualityColor = pass.maxElevation > 50 ? 'text-neutral-400' : pass.maxElevation > 25 ? 'text-neutral-300' : 'text-neutral-400';
 
   return (
     <div className="rounded-lg p-3 border border-solar/15 bg-solar/5 flex items-center gap-3">

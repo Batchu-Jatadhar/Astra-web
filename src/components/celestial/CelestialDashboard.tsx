@@ -44,12 +44,12 @@ function StatBox({ label, value, color }: { label: string; value: number; color:
   const colorMap: Record<string, string> = {
     aurora: 'text-sky-400',
     comet: 'text-violet-400',
-    solar: 'text-yellow-400',
+    solar: 'text-neutral-300',
   };
   const borderMap: Record<string, string> = {
     aurora: 'border-sky-400/20',
     comet: 'border-violet-400/20',
-    solar: 'border-yellow-400/20',
+    solar: 'border-neutral-300/20',
   };
   return (
     <div className={`rounded-lg border ${borderMap[color]} bg-white/[0.035] py-3 px-2`}>
@@ -186,7 +186,7 @@ function RadarCanvas({ bodies }: { bodies: Array<{ name: string; altitude: numbe
         ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.68)';
+        ctx.strokeStyle = 'rgba(79,195,247,0.68)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.arc(x, y, dotRadius + 1.5, 0, Math.PI * 2);

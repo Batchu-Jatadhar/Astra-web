@@ -64,7 +64,7 @@ function PlanetRow({ planet }: { planet: CelestialBody }) {
           {planet.magnitude !== undefined && (
             <span className="font-mono text-[10px] text-starlight/40">mag {planet.magnitude.toFixed(1)}</span>
           )}
-          <span className={`w-1.5 h-1.5 rounded-full ${planet.visible ? 'bg-green-400' : 'bg-red-500/50'}`} />
+          <span className={`w-1.5 h-1.5 rounded-full ${planet.visible ? 'bg-neutral-400' : 'bg-red-500/50'}`} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-1 font-mono text-[10px] text-starlight/60 mb-1.5">

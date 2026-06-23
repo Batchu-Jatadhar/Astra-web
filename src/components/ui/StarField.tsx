@@ -48,7 +48,7 @@ export default function StarField() {
         style={{
           top: '20%', left: '10%',
           width: '400px', height: '400px',
-          background: 'radial-gradient(circle, rgba(79,195,247,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)',
         }}
       />
       <div

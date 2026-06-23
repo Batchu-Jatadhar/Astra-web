@@ -15,7 +15,7 @@ export default function ISSTracker() {
   }, [issPosition?.timestamp]);
 
   return (
-    <div className={`glass-card p-4 transition-all duration-300 ${pulse ? 'border-yellow-400/40' : ''}`}>
+    <div className={`glass-card p-4 transition-all duration-300 ${pulse ? 'border-neutral-300/40' : ''}`}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">🛸</span>
@@ -48,7 +48,7 @@ export default function ISSTracker() {
 
 function Row({ label, value, color }: { label: string; value: string; color: string }) {
   const colorMap: Record<string, string> = {
-    solar: 'text-yellow-400',
+    solar: 'text-neutral-300',
     aurora: 'text-sky-400',
     comet: 'text-violet-400',
   };

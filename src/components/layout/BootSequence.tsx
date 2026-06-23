@@ -54,12 +54,12 @@ export default function BootSequence() {
           <div className="absolute inset-3 rounded-full border border-aurora/30" />
           <div className="absolute inset-6 rounded-full border border-aurora/40" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-aurora animate-pulse shadow-[0_0_12px_#4FC3F7]" />
+            <div className="w-2 h-2 rounded-full bg-aurora animate-pulse shadow-[0_0_12px_#FFFFFF]" />
           </div>
           <div
             className="absolute inset-0 origin-center"
             style={{
-              background: 'conic-gradient(from 0deg, transparent 0deg, rgba(79,195,247,0.3) 40deg, transparent 80deg)',
+              background: 'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.3) 40deg, transparent 80deg)',
               borderRadius: '50%',
               animation: 'radar-spin 1.5s linear infinite',
             }}
@@ -76,7 +76,7 @@ export default function BootSequence() {
         <div className="text-left font-mono text-xs space-y-1.5 min-h-[140px]">
           {BOOT_LINES.slice(0, lineIndex).map((line, i) => (
             <p key={i} className="text-aurora/70 flex items-center gap-2">
-              <span className="text-green-400">✓</span>
+              <span className="text-neutral-400">✓</span>
               {line}
             </p>
           ))}

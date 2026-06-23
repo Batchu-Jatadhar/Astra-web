@@ -72,12 +72,12 @@ function RadarIcon() {
   return (
     <div className="relative w-8 h-8 flex-shrink-0">
       <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <circle cx="16" cy="16" r="14" stroke="rgba(79,195,247,0.3)" strokeWidth="1" />
-        <circle cx="16" cy="16" r="10" stroke="rgba(79,195,247,0.4)" strokeWidth="1" />
-        <circle cx="16" cy="16" r="6" stroke="rgba(79,195,247,0.5)" strokeWidth="1" />
-        <circle cx="16" cy="16" r="2" fill="#4FC3F7" />
-        <line x1="16" y1="2" x2="16" y2="30" stroke="rgba(79,195,247,0.2)" strokeWidth="0.5" />
-        <line x1="2" y1="16" x2="30" y2="16" stroke="rgba(79,195,247,0.2)" strokeWidth="0.5" />
+        <circle cx="16" cy="16" r="14" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+        <circle cx="16" cy="16" r="10" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
+        <circle cx="16" cy="16" r="6" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+        <circle cx="16" cy="16" r="2" fill="#FFFFFF" />
+        <line x1="16" y1="2" x2="16" y2="30" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+        <line x1="2" y1="16" x2="30" y2="16" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
       </svg>
     </div>
   );
