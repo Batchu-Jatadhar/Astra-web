@@ -5,7 +5,7 @@ import Header from '@/components/layout/Header';
 import HeroOverlay from '@/components/layout/HeroOverlay';
 import BootSequence from '@/components/layout/BootSequence';
 import MobileDrawer from '@/components/layout/MobileDrawer';
-import ViewToggle from '@/components/map/ViewToggle';
+import { useISSTracking } from '@/hooks/useISSTracking';
 import CoordinatePanel from '@/components/celestial/CoordinatePanel';
 import CelestialDashboard from '@/components/celestial/CelestialDashboard';
 import ISSTracker from '@/components/celestial/ISSTracker';
@@ -17,11 +17,7 @@ import SkyPlanisphere from '@/components/celestial/SkyPlanisphere';
 import CelestialEvents from '@/components/celestial/CelestialEvents';
 import { useZenithStore } from '@/hooks/useZenithStore';
 import { useShareableURL } from '@/hooks/useShareableURL';
-
-const CosmicMap = dynamic(() => import('@/components/map/CosmicMap'), {
-  ssr: false,
-  loading: () => <MapLoading label="INITIALIZING MAP" />,
-});
+import AIChatPanel from '@/components/ai/AIChatPanel';
 
 const Globe3D = dynamic(() => import('@/components/map/Globe3D'), {
   ssr: false,
@@ -40,8 +36,9 @@ function MapLoading({ label }: { label: string }) {
 }
 
 export default function Home() {
-  const { coordinates, viewMode } = useZenithStore();
+  const { coordinates } = useZenithStore();
   useShareableURL();
+  useISSTracking();
 
   const dataPanels = (
     <>
@@ -52,13 +49,14 @@ export default function Home() {
             <PlanetPanel />
             <SatellitePanel />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="glass-card p-4 flex flex-col items-center gap-3">
-              <h2 className="font-display text-xs text-yellow-400 tracking-widest self-start">SKY VIEW (PLANISPHERE)</h2>
+              <h2 className="font-display text-xs text-neutral-300 tracking-widest self-start">SKY VIEW (PLANISPHERE)</h2>
               <div className="panel-rule w-full" />
               <SkyPlanisphere />
             </div>
             <ISSPassPredictor />
+            <AIChatPanel />
           </div>
           <ConstellationOverlay />
           <CelestialEvents />
@@ -78,8 +76,7 @@ export default function Home() {
         <div className="container mx-auto px-4 pt-24 pb-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             <div className="lg:col-span-2 h-[480px] rounded-xl overflow-hidden border border-aurora/20 relative">
-              {viewMode === '2d' ? <CosmicMap /> : <Globe3D />}
-              <ViewToggle />
+              <Globe3D />
             </div>
             <div className="flex flex-col gap-4">
               <CoordinatePanel />

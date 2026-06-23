@@ -116,12 +116,12 @@ export default function CoordinatePanel() {
       </div>
 
       {error && (
-        <p className="font-mono text-[11px] text-red-400">{error}</p>
+        <p className="font-mono text-[11px] text-neutral-500">{error}</p>
       )}
 
       <button
         onClick={handleSubmit}
-        className="w-full py-2 rounded font-display text-xs tracking-widest bg-aurora/10 border border-aurora/40 text-aurora hover:bg-aurora/20 transition-all hover:shadow-[0_0_16px_rgba(79,195,247,0.3)]"
+        className="w-full py-2 rounded font-display text-xs tracking-widest bg-aurora/10 border border-aurora/40 text-aurora hover:bg-aurora/20 transition-all hover:shadow-[0_0_16px_rgba(255,255,255,0.3)]"
       >
         SET ZENITH POINT
       </button>

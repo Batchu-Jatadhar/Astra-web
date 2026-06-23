@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useMemo, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { OrbitControls, Stars, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import { useZenithStore } from '@/hooks/useZenithStore';
@@ -10,7 +10,7 @@ const EARTH_RADIUS = 2;
 
 function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
   const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
+  const theta = (lng + 90) * (Math.PI / 180);
   return new THREE.Vector3(
     -radius * Math.sin(phi) * Math.cos(theta),
     radius * Math.cos(phi),
@@ -19,38 +19,91 @@ function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
 }
 
 function Earth() {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const [dayMap, normalMap, specularMap, nightMap] = useLoader(THREE.TextureLoader, [
+    '/textures/earth_daymap.jpg',
+    '/textures/earth_normal.jpg',
+    '/textures/earth_specular.jpg',
+    '/textures/earth_nightlights.png',
+  ]);
+
+  // Configure texture settings for quality
+  useMemo(() => {
+    [dayMap, normalMap, specularMap, nightMap].forEach((tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 8;
+    });
+    // Normal and specular maps should use linear color space
+    normalMap.colorSpace = THREE.LinearSRGBColorSpace;
+    specularMap.colorSpace = THREE.LinearSRGBColorSpace;
+  }, [dayMap, normalMap, specularMap, nightMap]);
+
+
+  return (
+    <mesh>
+      <sphereGeometry args={[EARTH_RADIUS, 64, 64]} />
+      <meshPhongMaterial
+        map={dayMap}
+        normalMap={normalMap}
+        normalScale={new THREE.Vector2(0.85, 0.85)}
+        specularMap={specularMap}
+        specular={new THREE.Color('#666666')}
+        shininess={25}
+        emissiveMap={nightMap}
+        emissive={new THREE.Color('#FFDDAA')}
+        emissiveIntensity={1.5}
+      />
+    </mesh>
+  );
+}
+
+function Clouds() {
+  const cloudsRef = useRef<THREE.Mesh>(null);
+
+  const cloudMap = useLoader(THREE.TextureLoader, '/textures/earth_clouds.png');
+
+  useMemo(() => {
+    cloudMap.colorSpace = THREE.SRGBColorSpace;
+    cloudMap.anisotropy = 8;
+  }, [cloudMap]);
 
   useFrame((_, delta) => {
-    if (meshRef.current) meshRef.current.rotation.y += delta * 0.02;
+    // Very subtle cloud drift relative to the Earth surface
+    if (cloudsRef.current) cloudsRef.current.rotation.y += delta * 0.005;
   });
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[EARTH_RADIUS, 64, 64]} />
-      <meshStandardMaterial
-        color="#0D1B3E"
-        emissive="#1A3A6E"
-        emissiveIntensity={0.15}
-        roughness={0.7}
-        metalness={0.2}
-        wireframe={false}
+    <mesh ref={cloudsRef}>
+      <sphereGeometry args={[EARTH_RADIUS * 1.005, 64, 64]} />
+      <meshPhongMaterial
+        map={cloudMap}
+        transparent
+        opacity={0.35}
+        depthWrite={false}
+        side={THREE.DoubleSide}
       />
-      {/* Wireframe overlay for grid look */}
-      <mesh>
-        <sphereGeometry args={[EARTH_RADIUS * 1.001, 24, 24]} />
-        <meshBasicMaterial color="#4FC3F7" wireframe transparent opacity={0.15} />
-      </mesh>
     </mesh>
   );
 }
 
 function AtmosphereGlow() {
   return (
-    <mesh>
-      <sphereGeometry args={[EARTH_RADIUS * 1.08, 32, 32]} />
-      <meshBasicMaterial color="#4FC3F7" transparent opacity={0.06} side={THREE.BackSide} />
-    </mesh>
+    <>
+      {/* Inner atmosphere glow */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS * 1.015, 64, 64]} />
+        <meshBasicMaterial color="#4FC3F7" transparent opacity={0.04} side={THREE.BackSide} />
+      </mesh>
+      {/* Outer atmosphere glow */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS * 1.08, 64, 64]} />
+        <meshBasicMaterial color="#4FC3F7" transparent opacity={0.06} side={THREE.BackSide} />
+      </mesh>
+      {/* Far atmosphere glow */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS * 1.15, 64, 64]} />
+        <meshBasicMaterial color="#1A7EC8" transparent opacity={0.03} side={THREE.BackSide} />
+      </mesh>
+    </>
   );
 }
 
@@ -109,23 +162,6 @@ function ISSMarker({ lat, lng }: { lat: number; lng: number }) {
   );
 }
 
-function OrbitRing() {
-  const points = useMemo(() => {
-    const pts: [number, number, number][] = [];
-    const r = EARTH_RADIUS * 1.18;
-    const inclination = (51.6 * Math.PI) / 180;
-    for (let i = 0; i <= 128; i++) {
-      const t = (i / 128) * Math.PI * 2;
-      const x = r * Math.cos(t);
-      const y = r * Math.sin(t) * Math.sin(inclination);
-      const z = r * Math.sin(t) * Math.cos(inclination);
-      pts.push([x, y, z]);
-    }
-    return pts;
-  }, []);
-
-  return <Line points={points} color="#F59E0B" transparent opacity={0.25} lineWidth={1} />;
-}
 
 function ConnectionArc({ lat, lng }: { lat: number; lng: number }) {
   const { issPosition } = useZenithStore();
@@ -146,13 +182,16 @@ function Scene() {
 
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 3, 5]} intensity={1.2} color="#ffffff" />
-      <pointLight position={[-5, -3, -5]} intensity={0.3} color="#4FC3F7" />
+      {/* Sunlight - directional from one side to create day/night effect */}
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[5, 3, 5]} intensity={2.0} color="#ffffff" />
+      <pointLight position={[-5, -3, -5]} intensity={0.15} color="#4FC3F7" />
 
-      <Earth />
-      <AtmosphereGlow />
-      <OrbitRing />
+      <group rotation={[0, -Math.PI / 2, 0]}>
+        <Earth />
+        <Clouds />
+        <AtmosphereGlow />
+      </group>
 
       {coordinates && <ZenithMarker lat={coordinates.lat} lng={coordinates.lng} />}
       {issPosition && <ISSMarker lat={issPosition.latitude} lng={issPosition.longitude} />}

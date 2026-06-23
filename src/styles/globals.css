@@ -5,14 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --void: #04060F;
-  --nebula: #0D1B3E;
-  --pulsar: #1A3A6E;
-  --starlight: #C8D8F8;
-  --aurora: #4FC3F7;
-  --comet: #A78BFA;
-  --solar: #F59E0B;
-  --horizon: #FF6B6B;
+  --void: #000000;
+  --nebula: #111111;
+  --pulsar: #333333;
+  --starlight: #E5E5E5;
+  --aurora: #FFFFFF;
+  --comet: #A3A3A3;
+  --solar: #737373;
+  --horizon: #525252;
 }
 
 * {
@@ -60,7 +60,7 @@ html, body {
 
 /* Glassmorphism cards */
 .glass-card {
-  background: linear-gradient(180deg, rgba(16, 27, 55, 0.72), rgba(6, 10, 22, 0.72));
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.72), rgba(10, 10, 10, 0.72));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -69,7 +69,7 @@ html, body {
 }
 
 .glass-card-bright {
-  background: rgba(20, 38, 76, 0.55);
+  background: rgba(30, 30, 30, 0.55);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -85,7 +85,7 @@ html, body {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    rgba(79, 195, 247, 0.4) 30deg,
+    rgba(255, 255, 255, 0.4) 30deg,
     transparent 60deg
   );
   border-radius: 50%;
@@ -99,7 +99,7 @@ html, body {
 
 /* Orbit ring */
 .orbit-ring {
-  border: 1px solid rgba(79, 195, 247, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   position: absolute;
   top: 50%; left: 50%;
@@ -117,30 +117,30 @@ html, body {
   width: 8px; height: 8px;
   background: var(--aurora);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--aurora), 0 0 20px rgba(79,195,247,0.5);
+  box-shadow: 0 0 8px var(--aurora), 0 0 20px rgba(255,255,255,0.5);
   animation: blip-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes blip-pulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 8px var(--aurora); }
-  50%       { transform: scale(1.4); box-shadow: 0 0 16px var(--aurora), 0 0 30px rgba(79,195,247,0.6); }
+  50%       { transform: scale(1.4); box-shadow: 0 0 16px var(--aurora), 0 0 30px rgba(255,255,255,0.6); }
 }
 
 /* Data stream */
 .data-stream {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: rgba(79, 195, 247, 0.7);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.8;
 }
 
 /* Glow text */
 .glow-text {
-  text-shadow: 0 0 10px rgba(79, 195, 247, 0.8), 0 0 30px rgba(79, 195, 247, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
 .glow-text-comet {
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.8), 0 0 30px rgba(167, 139, 250, 0.4);
+  text-shadow: 0 0 10px rgba(163, 163, 163, 0.8), 0 0 30px rgba(163, 163, 163, 0.4);
 }
 
 /* Gradient borders */
@@ -161,7 +161,7 @@ html, body {
 
 /* Leaflet map overrides */
 .leaflet-container {
-  background: #04060F !important;
+  background: #000000 !important;
   font-family: 'Inter', sans-serif;
 }
 
@@ -176,25 +176,25 @@ html, body {
 }
 
 .leaflet-control-zoom a:hover {
-  background: rgba(26, 58, 110, 0.9) !important;
+  background: rgba(51, 51, 51, 0.9) !important;
 }
 
 /* Custom marker */
 .zenith-marker {
   width: 26px; height: 26px;
-  background: radial-gradient(circle, #fff 0 12%, var(--aurora) 13% 34%, transparent 36%);
+  background: radial-gradient(circle, #fff 0 12%, #4FC3F7 13% 34%, transparent 36%);
   border: 2px solid rgba(255,255,255,0.85);
   border-radius: 50%;
-  box-shadow: 0 0 0 6px rgba(79,195,247,0.13), 0 0 22px var(--aurora);
+  box-shadow: 0 0 0 6px rgba(79,195,247,0.13), 0 0 22px #4FC3F7;
   animation: blip-pulse 1.5s ease-in-out infinite;
 }
 
 .iss-marker {
   width: 12px; height: 12px;
-  background: var(--solar);
+  background: #F59E0B;
   border: 2px solid #fff;
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--solar);
+  box-shadow: 0 0 10px #F59E0B;
 }
 
 /* Progress bar */
@@ -229,9 +229,9 @@ html, body {
 
 .shimmer {
   background: linear-gradient(90deg,
-    rgba(26,58,110,0.3) 25%,
-    rgba(79,195,247,0.1) 50%,
-    rgba(26,58,110,0.3) 75%
+    rgba(51,51,51,0.3) 25%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(51,51,51,0.3) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -248,3 +248,4 @@ html, body {
     transition-duration: 0.01ms !important;
   }
 }
+

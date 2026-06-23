@@ -65,7 +65,7 @@ export const useZenithStore = create<ZenithStore>((set) => ({
   loading: false,
   lastUpdated: null,
   bootComplete: false,
-  viewMode: '2d',
+  viewMode: '3d',
 
   setCoordinates: (coords) => set({ coordinates: coords }),
   setISSPosition: (pos) => set({ issPosition: pos }),

@@ -9,15 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        void: '#04060F',
-        nebula: '#0D1B3E',
-        pulsar: '#1A3A6E',
-        starlight: '#C8D8F8',
-        aurora: '#4FC3F7',
-        comet: '#A78BFA',
-        solar: '#F59E0B',
+        void: '#000000',
+        nebula: '#111111',
+        pulsar: '#333333',
+        starlight: '#E5E5E5',
+        aurora: '#FFFFFF',
+        comet: '#A3A3A3',
+        solar: '#737373',
         event: {
-          horizon: '#FF6B6B',
+          horizon: '#525252',
         },
       },
       fontFamily: {
@@ -26,8 +26,8 @@ const config: Config = {
         mono: ['JetBrains Mono', 'monospace'],
       },
       backgroundImage: {
-        'star-field': "radial-gradient(ellipse at top, #0D1B3E 0%, #04060F 70%)",
-        'nebula-glow': 'radial-gradient(circle at 50% 50%, rgba(79,195,247,0.15) 0%, transparent 70%)',
+        'star-field': "radial-gradient(ellipse at top, #111111 0%, #000000 70%)",
+        'nebula-glow': 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 70%)',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

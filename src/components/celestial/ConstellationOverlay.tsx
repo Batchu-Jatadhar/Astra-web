@@ -31,7 +31,7 @@ export default function ConstellationOverlay() {
   return (
     <div className="glass-card p-4">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="font-display text-xs text-yellow-400 tracking-widest">CONSTELLATION MAP</h2>
+        <h2 className="font-display text-xs text-neutral-300 tracking-widest">CONSTELLATION MAP</h2>
         <div className="flex gap-2">
           <LegendDot color="bg-yellow-400" label="Visible" />
           <LegendDot color="bg-yellow-400/40" label="Rising" />
@@ -67,9 +67,9 @@ function ConstellationCard({ constellation }: {
   return (
     <div className={`rounded-lg p-3 border transition-all ${
       isAbove
-        ? 'border-yellow-400/25 bg-yellow-400/5'
+        ? 'border-neutral-300/25 bg-yellow-400/5'
         : isRising
-        ? 'border-yellow-400/10 bg-yellow-400/3 opacity-60'
+        ? 'border-neutral-300/10 bg-yellow-400/3 opacity-60'
         : 'border-starlight/5 opacity-30'
     }`}>
       <div className="flex items-start justify-between mb-1">
@@ -81,8 +81,8 @@ function ConstellationCard({ constellation }: {
         }`} />
       </div>
       <div className="font-mono text-[9px] text-starlight/40 space-y-0.5">
-        <div>Alt: <span className="text-yellow-400/80">{constellation.altitude.toFixed(1)}°</span></div>
-        <div>Az: <span className="text-yellow-400/80">{constellation.azimuth.toFixed(1)}° {azDir}</span></div>
+        <div>Alt: <span className="text-neutral-300/80">{constellation.altitude.toFixed(1)}°</span></div>
+        <div>Az: <span className="text-neutral-300/80">{constellation.azimuth.toFixed(1)}° {azDir}</span></div>
       </div>
       {CONSTELLATION_STARS[constellation.name] && (
         <div className="mt-1.5 font-mono text-[8px] text-starlight/25 leading-tight truncate">
