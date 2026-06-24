@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: astra-web
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false          # means you set it manually in Render dashboard (keeps it secret)
+      - key: NEXT_PUBLIC_NASA_API_KEY
+        value: DEMO_KEY
+      - key: NODE_ENV
+        value: production
